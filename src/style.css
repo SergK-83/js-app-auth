@@ -45,3 +45,17 @@ button {
         margin-left: 180px;
     }
 }
+
+.btn-show-all {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}
+
+.modal {
+    width: 400px;
+    height: 300px;
+    margin: 100px auto;
+    padding: 10px 20px;
+    background-color: #fff;
+}

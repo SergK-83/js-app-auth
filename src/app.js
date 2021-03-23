@@ -1,10 +1,15 @@
 import {Question} from "./question";
-import {isValid} from './utils';
+import {createModal, isValid} from './utils';
 import './style.css';
 
 const form = document.getElementById('formQuestion');
 const input = document.getElementById('questionInput');
 const btnSubmit = document.getElementById('btnSubmit');
+const btnModal = document.getElementById('btnModal');
+
+window.addEventListener('load', Question.getList);
+
+btnModal.addEventListener('click', openModal);
 
 input.addEventListener('input', () => {
   btnSubmit.disabled = !isValid(input.value);
@@ -23,8 +28,6 @@ function submitFormHandler(event) {
 
     btnSubmit.disabled = true;
 
-    console.log('Question', question);
-
     // Async request to server to save question
     Question.create(question).then(() => {
       input.value = '';
@@ -32,4 +35,8 @@ function submitFormHandler(event) {
       btnSubmit.disabled = false;
     });
   }
+}
+
+function openModal() {
+  createModal('Авторизация', `<h4>Test</h4>`);
 }
