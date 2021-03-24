@@ -16,18 +16,38 @@ export class Question {
       .then(Question.renderList);
   }
 
-  static getList() {
-    return fetch('https://js-questions-243af-default-rtdb.europe-west1.firebasedatabase.app/questions.json', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+  static listToHtml(questions) {
+    return questions.length
+      ? `<ol>${questions.map(q => {
+        return `<li>
+          <div>
+            ${q.text}
+          </div>
+          <div class="mui--text-dark-secondary" style="font-size: 12px">
+            ${new Date(q.date).toLocaleDateString('ru')}
+            ${new Date(q.date).toLocaleTimeString('ru', {timeStyle: 'short'})}
+          </div>
+          <hr>
+        </li>`
+      }).join('')}</ol>`
+      : `<p>Нет записей</p>`;
+  }
+
+  static fetch(token) {
+    if (!token) {
+      return Promise.resolve(`<p class="error">У вас нет токена</p>`);
+    }
+    return fetch(`https://js-questions-243af-default-rtdb.europe-west1.firebasedatabase.app/questions.json?auth=${token}`)
       .then(response => response.json())
-      .then((data) => {
-        initListLocalStorage(data);
+      .then(response => {
+        if (response.error) {
+          return `<p class="error">${response.error}</p>`;
+        }
+
+        return response
+          ? Object.keys(response).map(key => ({...response[key], id: key}))
+          : [];
       })
-      .then(Question.renderList);
   }
 
   static renderList() {

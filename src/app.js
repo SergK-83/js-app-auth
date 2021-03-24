@@ -1,5 +1,6 @@
 import {Question} from "./question";
 import {createModal, isValid} from './utils';
+import {authWithEmailAndPassword, getAuthForm} from "./auth";
 import './style.css';
 
 const form = document.getElementById('formQuestion');
@@ -7,7 +8,7 @@ const input = document.getElementById('questionInput');
 const btnSubmit = document.getElementById('btnSubmit');
 const btnModal = document.getElementById('btnModal');
 
-window.addEventListener('load', Question.getList);
+window.addEventListener('load', Question.renderList);
 
 btnModal.addEventListener('click', openModal);
 
@@ -38,5 +39,31 @@ function submitFormHandler(event) {
 }
 
 function openModal() {
-  createModal('Авторизация', `<h4>Test</h4>`);
+  createModal('Авторизация', getAuthForm());
+  document
+    .getElementById('formAuth')
+    .addEventListener('submit', authFormHandler, {once: true});
+}
+
+function authFormHandler(event) {
+  event.preventDefault();
+
+  const btnSubmitModal = event.target.querySelector('#btnSubmitModal');
+  const email = event.target.querySelector('#email').value;
+  const password = event.target.querySelector('#password').value;
+
+  btnSubmitModal.disabled = true;
+
+  authWithEmailAndPassword(email, password)
+    .then(Question.fetch)
+    .then(renderModalAfterAuth)
+    .then(() => btnSubmitModal.disabled = false);
+}
+
+function renderModalAfterAuth(content) {
+  if (typeof content === 'string') {
+    createModal('Ошибка', content);
+  } else {
+    createModal('Список вопросов', Question.listToHtml(content));
+  }
 }

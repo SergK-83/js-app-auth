@@ -6,12 +6,13 @@ export function createModal(title, content) {
   const modal = document.createElement('div');
   modal.classList.add('modal');
 
-  const html = `
-    <h3>${title}</h3>
-    <div>${content}</div>
+  modal.innerHTML = `
+    <div class="modal-header">
+      <h3 class="modal-title">${title}</h3>
+    </div>
+    
+    <div class="modal-content">${content}</div>
   `;
-
-  modal.innerHTML = html;
 
   mui.overlay('on', modal);
 }

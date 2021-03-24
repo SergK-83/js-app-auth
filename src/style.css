@@ -4,7 +4,7 @@
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 html,
@@ -12,9 +12,9 @@ body,
 input,
 textarea,
 button {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 }
 
 /**
@@ -22,40 +22,54 @@ button {
  */
 
 #sidebar {
-    background-color: #E57373;
-    padding: 15px;
+  background-color: #E57373;
+  padding: 15px;
 }
 
 @media (min-width: 768px) {
-    #sidebar {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        width: 180px;
-        height: 100%;
-        padding-top: 30px;
-    }
+  #sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 180px;
+    height: 100%;
+    padding-top: 30px;
+  }
 }
 
 /**
  * Content CSS
  */
 @media (min-width: 768px) {
-    #content {
-        margin-left: 180px;
-    }
+  #content {
+    margin-left: 180px;
+  }
 }
 
 .btn-show-all {
-    position: fixed;
-    bottom: 50px;
-    right: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
 }
 
 .modal {
-    width: 400px;
-    height: 300px;
-    margin: 100px auto;
-    padding: 10px 20px;
-    background-color: #fff;
+  width: 400px;
+  margin: 100px auto;
+  background-color: #fff;
+}
+
+.modal-header, .modal-content, .modal-footer {
+  padding: 15px;
+}
+
+.modal-header {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-title {
+  margin: 0;
+}
+
+.error {
+  color: red;
 }
