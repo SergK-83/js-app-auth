@@ -70,6 +70,11 @@ button {
   margin: 0;
 }
 
+.modal-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
 .error {
   color: red;
 }

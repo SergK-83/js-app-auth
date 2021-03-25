@@ -40,14 +40,14 @@ export class Question {
     return fetch(`https://js-questions-243af-default-rtdb.europe-west1.firebasedatabase.app/questions.json?auth=${token}`)
       .then(response => response.json())
       .then(response => {
-        if (response.error) {
+        if (response && response.error) {
           return `<p class="error">${response.error}</p>`;
         }
 
         return response
           ? Object.keys(response).map(key => ({...response[key], id: key}))
           : [];
-      })
+      });
   }
 
   static renderList() {
